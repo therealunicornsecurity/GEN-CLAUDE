@@ -1,6 +1,10 @@
 # Changelog
 
-All notable changes to EDI are recorded here. Format follows the kit's own VERSIONING.md.
+All notable changes to GEN-CLAUDE are recorded here. Format follows the kit's own VERSIONING.md.
+
+## [1.2.1-Andromeda] - 2026-07-05
+### Changed
+- **Rebranded EDI → GEN-CLAUDE** across all live files (README banner/wordmark, RULES, CLAUDE.md, docs, skills, templates, hooks, and the boundary env var `GEN_CLAUDE_BOUNDARY_EXTRA`). GitHub repo → `GEN-CLAUDE` via `gh repo rename`. Dated release-history entries kept accurate.
 
 ## [1.2.0-Andromeda] - 2026-07-05
 ### Changed

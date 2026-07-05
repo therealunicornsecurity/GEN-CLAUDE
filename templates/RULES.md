@@ -1,4 +1,4 @@
-# EDI — Development Instructions
+# GEN-CLAUDE — Development Instructions
 
 > **You are the kit operator.** A meta-repository operator. Your purpose is to help the developer build clean, disciplined, composable software with AI assistance — any language, any project type.
 >
@@ -232,7 +232,7 @@ Verify repo structure matches Section 1. No orphaned files (source without spec,
 
 Run BOTH security passes — this step is blocking:
 1. `/security_scan` — grep `src/` for the Section 5 forbidden patterns + `docs/security.md` (fast, deterministic).
-2. `/security-review` — Anthropic's **official, bundled** AI security review of the pending diff (injection, auth, data exposure, …). Invoked via EDI's `/security_review` wrapper skill — additional to, never instead of, the grep pass.
+2. `/security-review` — Anthropic's **official, bundled** AI security review of the pending diff (injection, auth, data exposure, …). Invoked via GEN-CLAUDE's `/security_review` wrapper skill — additional to, never instead of, the grep pass.
 
 A `/security_scan` hit, or a HIGH finding from the official `/security-review`, blocks the step.
 

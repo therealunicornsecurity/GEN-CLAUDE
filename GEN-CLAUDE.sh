@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════════════
-# GEN-CLAUDE.sh — EDI scaffolder + sync tool
+# GEN-CLAUDE.sh — GEN-CLAUDE scaffolder + sync tool
 # ═══════════════════════════════════════════════════════════════════════
 # Usage:
 #   GEN-CLAUDE.sh init <name> <language>       Scaffold a new repo from this kit

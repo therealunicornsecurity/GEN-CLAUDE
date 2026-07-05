@@ -35,5 +35,5 @@ pool:
     - Tucana
 
 assigned:
-  - { name: Orion,     repo: edi, version: 0.1.0, date: 2026-05-25 }
-  - { name: Andromeda, repo: edi, version: 1.0.0, date: 2026-06-08 }
+  - { name: Orion,     repo: gen-claude, version: 0.1.0, date: 2026-05-25 }
+  - { name: Andromeda, repo: gen-claude, version: 1.0.0, date: 2026-06-08 }

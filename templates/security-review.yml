@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────────────
-# EDI — opt-in CI security review (AI-powered, diff-scoped).
+# GEN-CLAUDE — opt-in CI security review (AI-powered, diff-scoped).
 # Integrates anthropics/claude-code-security-review (MIT):
 #   https://github.com/anthropics/claude-code-security-review
 #
@@ -36,6 +36,6 @@ jobs:
           # ── optional ──────────────────────────────────────────────
           # claude-model: claude-opus-4-1-20250805
           # exclude-directories: tests,docs
-          # custom-security-scan-instructions: docs/security.md   # reuse EDI's per-language addendum
+          # custom-security-scan-instructions: docs/security.md   # reuse GEN-CLAUDE's per-language addendum
           # false-positive-filtering-instructions: docs/security.md
           # claudecode-timeout: 20

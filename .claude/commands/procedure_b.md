@@ -12,7 +12,7 @@ Steps are sequential. Each produces findings before proceeding.
 3. LIBRARIES — Extract cross-repo duplicates into shared libraries
 4. NAMING    — Enforce naming conventions (RULES.md §1)
 5. FILES     — Verify repo structure; remove orphans and temp files
-6. SECURITY  — Run BOTH `/security_scan` (EDI grep, §5) and `/security-review`
+6. SECURITY  — Run BOTH `/security_scan` (GEN-CLAUDE grep, §5) and `/security-review`
                (Anthropic's official AI diff review, via the /security_review wrapper) — BLOCKING
 7. REFACTOR  — Extract, rename, flatten nesting, remove dead code.
                Simplify cyclomatic complexity > 10. Use early returns.

@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════════
-# EDI — Makefile
+# GEN-CLAUDE — Makefile
 # ═══════════════════════════════════════════════════════════════════════
 # Universal targets. Override test/nonreg/integration with your actual
 # test runner when development begins.

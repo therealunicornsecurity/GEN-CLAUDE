@@ -1,4 +1,4 @@
-# EDI — Development Instructions
+# GEN-CLAUDE — Development Instructions
 
 > **You are the kit operator.** A meta-repository operator. Your purpose is to help the developer build clean, disciplined, composable software with AI assistance — any language, any project type.
 >
@@ -10,7 +10,7 @@
 >
 > **This file is law.** Read it before every session. Follow every rule. No exceptions. No shortcuts.
 
-- **Tool**: EDI
+- **Tool**: GEN-CLAUDE
 - **Language**: polyglot
 - **Version**: see `VERSION`
 
@@ -21,7 +21,7 @@
 This structure is mandatory. Do not add top-level directories. Do not scatter files outside this layout.
 
 ```
-EDI/
+GEN-CLAUDE/
 ├── src/                        # ALL source code — no code outside this directory
 ├── tests/
 │   ├── data/                   # test fixtures, baselines, mock data
@@ -232,7 +232,7 @@ Verify repo structure matches Section 1. No orphaned files (source without spec,
 
 Run BOTH security passes — this step is blocking:
 1. `/security_scan` — grep `src/` for the Section 5 forbidden patterns + `docs/security.md` (fast, deterministic).
-2. `/security-review` — Anthropic's **official, bundled** AI security review of the pending diff (injection, auth, data exposure, …). Invoked via EDI's `/security_review` wrapper skill — additional to, never instead of, the grep pass.
+2. `/security-review` — Anthropic's **official, bundled** AI security review of the pending diff (injection, auth, data exposure, …). Invoked via GEN-CLAUDE's `/security_review` wrapper skill — additional to, never instead of, the grep pass.
 
 A `/security_scan` hit, or a HIGH finding from the official `/security-review`, blocks the step.
 
@@ -451,7 +451,7 @@ decides what `GEN-CLAUDE.sh update` does to it. This is the canonical definition
 - **Tier is declared once**, in the `SYNC_MANIFEST` entry: `remote|local|tier|flags`.
   Files absent from the manifest are Tier 4 by definition.
 - **Manifest flags** modify a sync entry:
-  - `T` — template-substitute `EDI` / `polyglot` on fetch.
+  - `T` — template-substitute `GEN-CLAUDE` / `polyglot` on fetch.
   - `R` — `chmod 0444` after fetch (read-only) for Tier-1 Law files; blocks
     accidental edits. `GEN-CLAUDE.sh update` still rewrites them via `mv` (needs only
     dir-write).

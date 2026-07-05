@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 # ═══════════════════════════════════════════════════════════════════════
-# GEN-CLAUDE.ps1 — EDI scaffolder + sync tool  (PowerShell port of GEN-CLAUDE.sh)
+# GEN-CLAUDE.ps1 — GEN-CLAUDE scaffolder + sync tool  (PowerShell port of GEN-CLAUDE.sh)
 # ═══════════════════════════════════════════════════════════════════════
 # Usage:
 #   GEN-CLAUDE.ps1 init <name> <language>       Scaffold a new repo from this kit
@@ -318,7 +318,7 @@ function Invoke-Comply {
 function Show-Help {
     Write-Host @'
 
-GEN-CLAUDE.ps1 — EDI scaffolder + sync tool
+GEN-CLAUDE.ps1 — GEN-CLAUDE scaffolder + sync tool
 Usage:
   GEN-CLAUDE.ps1 init <name> <language>       Scaffold a new repo from this kit
   GEN-CLAUDE.ps1 update                       Re-sync Tier-1 (Law) files

@@ -1,17 +1,17 @@
 ```
-███████╗██████╗ ██╗
-██╔════╝██╔══██╗██║
-█████╗  ██║  ██║██║
-██╔══╝  ██║  ██║██║
-███████╗██████╔╝██║
-╚══════╝╚═════╝ ╚═╝
-   Enhanced Defense Intelligence · the Claude Code workspace kit
+ ██████╗ ███████╗███╗   ██╗       ██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗
+██╔════╝ ██╔════╝████╗  ██║      ██╔════╝██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝
+██║  ███╗█████╗  ██╔██╗ ██║█████╗██║     ██║     ███████║██║   ██║██║  ██║█████╗
+██║   ██║██╔══╝  ██║╚██╗██║╚════╝██║     ██║     ██╔══██║██║   ██║██║  ██║██╔══╝
+╚██████╔╝███████╗██║ ╚████║      ╚██████╗███████╗██║  ██║╚██████╔╝██████╔╝███████╗
+ ╚═════╝ ╚══════╝╚═╝  ╚═══╝       ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+   scaffold disciplined Claude Code workspaces
    rules that don't drift
 ```
 
 <div align="center">
 
-![version](https://img.shields.io/badge/version-1.2.0--Andromeda-6e40c9)
+![version](https://img.shields.io/badge/version-1.2.1--Andromeda-6e40c9)
 ![claude code](https://img.shields.io/badge/Claude_Code-workspace-d97757)
 ![languages](https://img.shields.io/badge/languages-8-2ea043)
 ![law](https://img.shields.io/badge/RULES.md-is_law-c9302c)
@@ -51,11 +51,11 @@ No build step. No dependencies beyond `bash`, `make`, and `sed` (every dev box h
 
 ```bash
 # 1. Get the kit
-git clone <your-fork-url> edi && cd edi
+git clone <your-fork-url> gen-claude && cd gen-claude
 
 # 2. (optional) make the scaffolder reachable
 chmod +x GEN-CLAUDE.sh
-ln -s "$PWD/GEN-CLAUDE.sh" ~/.local/bin/edi   # then just `edi init …` anywhere
+ln -s "$PWD/GEN-CLAUDE.sh" ~/.local/bin/gen-claude   # then just `gen-claude init …` anywhere
 
 # 3. Scaffold your first repo (lands in a sibling directory)
 ./GEN-CLAUDE.sh init <name> <language>
@@ -159,7 +159,7 @@ docs/ tests/ src/ configs/ snapshots/   mandated structure
 
 ### 🛡️ Hooks — the part that actually enforces
 
-Most "AI rules" are suggestions. EDI's are **wired into Claude Code's lifecycle**, so
+Most "AI rules" are suggestions. GEN-CLAUDE's are **wired into Claude Code's lifecycle**, so
 the workspace boundary holds even when a prompt tries to wander:
 
 - **`PreToolCall`** — blocks file reads/writes outside the repo and refuses
