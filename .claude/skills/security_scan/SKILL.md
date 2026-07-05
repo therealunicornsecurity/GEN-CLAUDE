@@ -7,7 +7,7 @@ tags: [security, scan, lint, review]
 
 # /security_scan
 
-Scan `src/` for the **forbidden code patterns** defined in `RULES.md §5` (universal, language-agnostic) **plus** the language-specific patterns at `docs/security.md` (copied from the kit's `templates/security/<lang>.md` at `edi.sh init`). Step 6 of the Code Quality Review (Procedure B). Any hit is **blocking** — fix before continuing.
+Scan `src/` for the **forbidden code patterns** defined in `RULES.md §5` (universal, language-agnostic) **plus** the language-specific patterns at `docs/security.md` (copied from the kit's `templates/security/<lang>.md` at `GEN-CLAUDE.sh init`). Step 6 of the Code Quality Review (Procedure B). Any hit is **blocking** — fix before continuing.
 
 Always grep both layers:
 1. `RULES.md §5` — universal patterns (apply everywhere)

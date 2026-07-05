@@ -11,7 +11,7 @@
 
 <div align="center">
 
-![version](https://img.shields.io/badge/version-1.1.0--Andromeda-6e40c9)
+![version](https://img.shields.io/badge/version-1.2.0--Andromeda-6e40c9)
 ![claude code](https://img.shields.io/badge/Claude_Code-workspace-d97757)
 ![languages](https://img.shields.io/badge/languages-8-2ea043)
 ![law](https://img.shields.io/badge/RULES.md-is_law-c9302c)
@@ -29,11 +29,11 @@ procedures, wired the same way across every project **so the rules never drift.*
 ## ⚡ TL;DR
 
 ```bash
-./edi.sh init my-parser python     # scaffold a disciplined repo in one command
+./GEN-CLAUDE.sh init my-parser python     # scaffold a disciplined repo in one command
 cd my-parser
-./edi.sh comply                    # audit it against the law
+./GEN-CLAUDE.sh comply                    # audit it against the law
 # …later, when the kit evolves…
-./edi.sh update                    # re-sync the rules without touching your code
+./GEN-CLAUDE.sh update                    # re-sync the rules without touching your code
 ```
 
 One scaffolder. Four file-ownership tiers. Two binding procedures. Real enforcement via
@@ -54,11 +54,11 @@ No build step. No dependencies beyond `bash`, `make`, and `sed` (every dev box h
 git clone <your-fork-url> edi && cd edi
 
 # 2. (optional) make the scaffolder reachable
-chmod +x edi.sh
-ln -s "$PWD/edi.sh" ~/.local/bin/edi   # then just `edi init …` anywhere
+chmod +x GEN-CLAUDE.sh
+ln -s "$PWD/GEN-CLAUDE.sh" ~/.local/bin/edi   # then just `edi init …` anywhere
 
 # 3. Scaffold your first repo (lands in a sibling directory)
-./edi.sh init <name> <language>
+./GEN-CLAUDE.sh init <name> <language>
 ```
 
 **Supported languages** — each `init` drops the matching `.gitignore` **and** a
@@ -76,17 +76,17 @@ language-specific security addendum (`docs/security.md`):
 
 ## 🎛️ Commands
 
-The toolkit speaks three dialects: the **`edi.sh` CLI**, **slash commands** you type to
+The toolkit speaks three dialects: the **`GEN-CLAUDE.sh` CLI**, **slash commands** you type to
 Claude, and **`make` targets**. Here's the whole surface.
 
-### `edi.sh` — the scaffolder
+### `GEN-CLAUDE.sh` — the scaffolder
 
 | Command | What it does |
 |---------|--------------|
-| `edi.sh init <name> <lang>` | Scaffold a brand-new repo: full `.claude/` workspace, `src/`+`tests/`+`docs/` skeleton, Makefile, VERSION, CHANGELOG, language `.gitignore` + security addendum |
-| `edi.sh update` | Re-sync **Tier-1 (Law)** and missing **Tier-3 (Merge)** files from the kit — your code is never touched |
-| `edi.sh comply` | Audit the current repo against the rules (structure, required files, 1000-line cap) |
-| `edi.sh help` | Print usage |
+| `GEN-CLAUDE.sh init <name> <lang>` | Scaffold a brand-new repo: full `.claude/` workspace, `src/`+`tests/`+`docs/` skeleton, Makefile, VERSION, CHANGELOG, language `.gitignore` + security addendum |
+| `GEN-CLAUDE.sh update` | Re-sync **Tier-1 (Law)** and missing **Tier-3 (Merge)** files from the kit — your code is never touched |
+| `GEN-CLAUDE.sh comply` | Audit the current repo against the rules (structure, required files, 1000-line cap) |
+| `GEN-CLAUDE.sh help` | Print usage |
 
 ### Slash commands — type these to Claude
 
@@ -94,7 +94,7 @@ Claude, and **`make` targets**. Here's the whole surface.
 |---------|----------|
 | `/procedure_a` | **TDD walkthrough** — spec → test → code → verify → baseline → nonreg → doc → version |
 | `/procedure_b` | **Code-quality review** — deps → split → dedup → libraries → naming → files → security → refactor → optimize |
-| `/new_tool` | Scaffold a new repo via `edi.sh init` (asks for `NAME` + `LANG`, requests boundary permission) |
+| `/new_tool` | Scaffold a new repo via `GEN-CLAUDE.sh init` (asks for `NAME` + `LANG`, requests boundary permission) |
 | `/freeze` | Capture an **immutable, codenamed snapshot** of UI/schema/spec/config |
 | `/tag` | Version bump (`patch`/`minor`/`major`) → CHANGELOG entry → emits the exact git tag+push commands |
 
@@ -109,7 +109,7 @@ Claude, and **`make` targets**. Here's the whole surface.
 | `/perf_benchmark` | Before/after profiling for the OPTIMIZE step (regressions block) |
 | `/deps_audit` | CVE scan + license-compliance gate (review step 0, **blocking**) |
 | `/security_scan` | Grep `src/` for RULES.md §5 forbidden patterns (review step 6, **blocking**) |
-| `/security_review` | AI semantic security review of the pending diff — complements `/security_scan` at review step 6; integrates [anthropics/claude-code-security-review](https://github.com/anthropics/claude-code-security-review) (MIT) |
+| `/security_review` | Invokes Anthropic's official **`/security-review`** on the diff — runs **in addition to** `/security_scan` at review step 6 (both blocking); [anthropics/claude-code-security-review](https://github.com/anthropics/claude-code-security-review) |
 
 ### `make` targets — every scaffolded repo implements these
 
@@ -170,10 +170,10 @@ the workspace boundary holds even when a prompt tries to wander:
 
 ### 🪜 File Ownership Tiers
 
-Every file belongs to exactly one tier — the tier decides what `edi.sh update` does to it.
+Every file belongs to exactly one tier — the tier decides what `GEN-CLAUDE.sh update` does to it.
 **Rules cannot be overridden by local edits**; that's the whole point.
 
-| Tier | Label | `edi.sh update` behavior | Examples |
+| Tier | Label | `GEN-CLAUDE.sh update` behavior | Examples |
 |:---:|---|---|---|
 | **1** | 🟥 Law | Force-sync from kit — **local edits lost** | `RULES.md`, `.claude/CLAUDE.md`, hooks, commands |
 | **2** | 🟧 Scaffold | Written at init only — **never overwritten** | `VERSION`, `CHANGELOG.md`, `Makefile`, `.gitignore` |
@@ -216,11 +216,11 @@ a YAML with a `pool:` list and an `assigned:` list. Once assigned, a codename is
 ## 📁 Repo map
 
 ```
-edi.sh                 the scaffolder + sync tool
+GEN-CLAUDE.sh                 the scaffolder + sync tool
 RULES.md               the law (10 sections) — copied to every repo as Tier 1
 Makefile               this kit's own targets
 VERSION · CHANGELOG.md this kit's own version + history
-templates/             everything edi.sh stamps into a new repo
+templates/             everything GEN-CLAUDE.sh stamps into a new repo
   ├── RULES.md · CLAUDE.md · Makefile · VERSIONING.md
   ├── CHANGELOG.template.md · codenames-example.yml
   ├── security/        per-language addendums (python · c · rust · go full)

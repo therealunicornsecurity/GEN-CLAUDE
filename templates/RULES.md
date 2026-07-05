@@ -232,9 +232,9 @@ Verify repo structure matches Section 1. No orphaned files (source without spec,
 
 Run BOTH security passes — this step is blocking:
 1. `/security_scan` — grep `src/` for the Section 5 forbidden patterns + `docs/security.md` (fast, deterministic).
-2. `/security_review` — AI semantic review of the pending diff (taint flow, injection sinks, auth logic), adapted from anthropics/claude-code-security-review (MIT).
+2. `/security-review` — Anthropic's **official, bundled** AI security review of the pending diff (injection, auth, data exposure, …). Invoked via EDI's `/security_review` wrapper skill — additional to, never instead of, the grep pass.
 
-A `/security_scan` hit, or a HIGH finding at confidence ≥ 0.8 from `/security_review`, blocks the step.
+A `/security_scan` hit, or a HIGH finding from the official `/security-review`, blocks the step.
 
 ### Step 7 — REFACTOR: Structural Improvements
 
@@ -432,10 +432,10 @@ Restore: copy all files from this folder back to their original locations
 ## 10. File Ownership Tiers
 
 Every file in a repo belongs to exactly one ownership tier. The tier
-decides what `edi.sh update` does to it. This is the canonical definition;
-`.claude/CLAUDE.md` and the `SYNC_MANIFEST` in `edi.sh` reference it.
+decides what `GEN-CLAUDE.sh update` does to it. This is the canonical definition;
+`.claude/CLAUDE.md` and the `SYNC_MANIFEST` in `GEN-CLAUDE.sh` reference it.
 
-| Tier | Label    | `edi.sh update` behavior                    | Examples                                  |
+| Tier | Label    | `GEN-CLAUDE.sh update` behavior                    | Examples                                  |
 |------|----------|---------------------------------------------|-------------------------------------------|
 | 1    | Law      | Force-sync from remote — local edits lost   | `RULES.md`, `.claude/CLAUDE.md`, `docs/spec/*` |
 | 2    | Scaffold | Written at init only — never overwritten    | `VERSION`, `CHANGELOG.md`, `Makefile`, `.gitignore` |
@@ -445,7 +445,7 @@ decides what `edi.sh update` does to it. This is the canonical definition;
 ### Rules
 
 - **Rules cannot be overridden by local edits.** A Tier-1 file edited locally is
-  reverted on the next `edi.sh update`. To change law, edit it in the kit
+  reverted on the next `GEN-CLAUDE.sh update`. To change law, edit it in the kit
   meta-repo and propagate; for repo-local rule additions use the Tier-4
   `.claude/CLAUDE.local.md` sidecar.
 - **Tier is declared once**, in the `SYNC_MANIFEST` entry: `remote|local|tier|flags`.
@@ -453,7 +453,7 @@ decides what `edi.sh update` does to it. This is the canonical definition;
 - **Manifest flags** modify a sync entry:
   - `T` — template-substitute `{{TOOL_NAME}}` / `{{LANGUAGE}}` on fetch.
   - `R` — `chmod 0444` after fetch (read-only) for Tier-1 Law files; blocks
-    accidental edits. `edi.sh update` still rewrites them via `mv` (needs only
+    accidental edits. `GEN-CLAUDE.sh update` still rewrites them via `mv` (needs only
     dir-write).
 - **Tier 2 is init-only and force-protected** — `sync_entry()` refuses to
   overwrite a Scaffold file that already exists, regardless of caller mode, so

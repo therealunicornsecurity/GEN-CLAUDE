@@ -7,7 +7,7 @@
 
 Every file in this repo is exactly one tier:
 
-| Tier | Label       | `edi.sh update` behavior                |
+| Tier | Label       | `GEN-CLAUDE.sh update` behavior                |
 |------|-------------|-----------------------------------------|
 | 1    | Law         | Force-sync from remote — local edits lost |
 | 2    | Scaffold    | Written at init only — never overwritten |
@@ -27,7 +27,7 @@ or add overrides to `.claude/CLAUDE.local.md` (Tier 4).
 |------------------|---------------------------------------|
 | /procedure_a     | TDD procedure (8 steps, RULES.md §3)  |
 | /procedure_b     | Code review (9 steps, RULES.md §4)    |
-| /new_tool        | Scaffold new repo via edi.sh          |
+| /new_tool        | Scaffold new repo via GEN-CLAUDE.sh          |
 | /freeze          | Snapshot with next codename           |
 | /tag             | Patch/minor/major version bumper      |
 
@@ -40,5 +40,5 @@ or add overrides to `.claude/CLAUDE.local.md` (Tier 4).
 | /test_gen       | Generate test suites                     |
 | /deps_audit     | CVE scan + license compliance gate       |
 | /security_scan  | Grep RULES.md §5 forbidden patterns (review step 6) |
-| /security_review | AI semantic security review of the diff (review step 6) |
+| /security_review | Invokes the official /security-review (Anthropic) — additional to /security_scan (review step 6) |
 | /perf_benchmark | Before/after benchmark (review step 8)   |

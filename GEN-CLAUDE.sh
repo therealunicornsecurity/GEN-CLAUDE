@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════════════
-# edi.sh — EDI scaffolder + sync tool
+# GEN-CLAUDE.sh — EDI scaffolder + sync tool
 # ═══════════════════════════════════════════════════════════════════════
 # Usage:
-#   edi.sh init <name> <language>       Scaffold a new repo from this kit
-#   edi.sh update                       Re-sync Tier-1 (Law) files
-#   edi.sh comply                       Check current repo against the rules
-#   edi.sh help                         Show this help
+#   GEN-CLAUDE.sh init <name> <language>       Scaffold a new repo from this kit
+#   GEN-CLAUDE.sh update                       Re-sync Tier-1 (Law) files
+#   GEN-CLAUDE.sh comply                       Check current repo against the rules
+#   GEN-CLAUDE.sh help                         Show this help
 #
 # Languages: python | go | typescript | javascript | bash | cpp | rust | latex
 #
@@ -151,7 +151,7 @@ EOF
 cmd_init() {
     local name="${1:-}" lang="${2:-}"
     if [ -z "$name" ] || [ -z "$lang" ]; then
-        err "usage: edi.sh init <name> <language>"
+        err "usage: GEN-CLAUDE.sh init <name> <language>"
         exit 1
     fi
 
@@ -184,7 +184,7 @@ cmd_init() {
     # Per-language security patterns (Tier 1 — force-synced from kit on update)
     sync_security_patterns "$lang"
 
-    # Record language for edi.sh update to find later
+    # Record language for GEN-CLAUDE.sh update to find later
     echo "$lang" > .kit-lang
 
     # VERSION + CHANGELOG (Tier 2 — scaffold once)

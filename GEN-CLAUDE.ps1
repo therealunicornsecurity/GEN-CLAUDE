@@ -1,12 +1,12 @@
 #!/usr/bin/env pwsh
 # ═══════════════════════════════════════════════════════════════════════
-# edi.ps1 — EDI scaffolder + sync tool  (PowerShell port of edi.sh)
+# GEN-CLAUDE.ps1 — EDI scaffolder + sync tool  (PowerShell port of GEN-CLAUDE.sh)
 # ═══════════════════════════════════════════════════════════════════════
 # Usage:
-#   edi.ps1 init <name> <language>       Scaffold a new repo from this kit
-#   edi.ps1 update                       Re-sync Tier-1 (Law) files
-#   edi.ps1 comply                       Check current repo against the rules
-#   edi.ps1 help                         Show this help
+#   GEN-CLAUDE.ps1 init <name> <language>       Scaffold a new repo from this kit
+#   GEN-CLAUDE.ps1 update                       Re-sync Tier-1 (Law) files
+#   GEN-CLAUDE.ps1 comply                       Check current repo against the rules
+#   GEN-CLAUDE.ps1 help                         Show this help
 #
 # Languages: python | go | typescript | javascript | bash | cpp | rust | latex
 #
@@ -186,7 +186,7 @@ function Invoke-Init {
     param([string]$Name, [string]$Lang)
 
     if ([string]::IsNullOrEmpty($Name) -or [string]::IsNullOrEmpty($Lang)) {
-        Write-Err 'usage: edi.ps1 init <name> <language>'; exit 1
+        Write-Err 'usage: GEN-CLAUDE.ps1 init <name> <language>'; exit 1
     }
     if (Test-Path -LiteralPath $Name) {
         Write-Err "directory already exists: $Name"; exit 1
@@ -228,7 +228,7 @@ function Invoke-Init {
         # Per-language security patterns (Tier 1 — force-synced on update)
         Sync-SecurityPatterns -Lang $Lang
 
-        # Record language for edi.ps1 update to find later
+        # Record language for GEN-CLAUDE.ps1 update to find later
         Write-TextFile -Path '.kit-lang' -Content ($Lang + "`n")
 
         # VERSION + CHANGELOG (Tier 2 — scaffold once)
@@ -318,12 +318,12 @@ function Invoke-Comply {
 function Show-Help {
     Write-Host @'
 
-edi.ps1 — EDI scaffolder + sync tool
+GEN-CLAUDE.ps1 — EDI scaffolder + sync tool
 Usage:
-  edi.ps1 init <name> <language>       Scaffold a new repo from this kit
-  edi.ps1 update                       Re-sync Tier-1 (Law) files
-  edi.ps1 comply                       Check current repo against the rules
-  edi.ps1 help                         Show this help
+  GEN-CLAUDE.ps1 init <name> <language>       Scaffold a new repo from this kit
+  GEN-CLAUDE.ps1 update                       Re-sync Tier-1 (Law) files
+  GEN-CLAUDE.ps1 comply                       Check current repo against the rules
+  GEN-CLAUDE.ps1 help                         Show this help
 
 Languages: python | go | typescript | javascript | bash | cpp | rust | latex
 

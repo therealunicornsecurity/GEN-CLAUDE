@@ -12,13 +12,13 @@ Last updated: 2026-06-08
 | `Makefile` | Kit-self Makefile (rendered from `templates/Makefile`) | — |
 | `VERSION` | Kit version (`MAJOR.MINOR.PATCH[-CODENAME]`) | 1 |
 | `CHANGELOG.md` | Kit version history | — |
-| `edi.sh` | Scaffolder: `init` (new repo), `update` (re-sync Tier-1), `comply` (rule check) | — |
+| `GEN-CLAUDE.sh` | Scaffolder: `init` (new repo), `update` (re-sync Tier-1), `comply` (rule check) | — |
 | `templates/RULES.md` | The law file — 10 sections: structure, docs, TDD, review, security, Makefile, commits, AI rules, snapshot, ownership tiers | — |
 | `templates/CLAUDE.md` | Per-repo `.claude/CLAUDE.md` template | — |
 | `templates/Makefile` | Universal `build`/`test`/`nonreg`/`integration`/`lint`/`review`/`snapshot`/`clean` | — |
 | `templates/VERSIONING.md` | `MAJOR.MINOR.PATCH[-CODENAME]` scheme, codename tiers, changelog format | — |
 | `templates/codenames-example.yml` | Neutral starter pool (constellations) — replace with your own theme | — |
-| `templates/CHANGELOG.template.md` | Initial `CHANGELOG.md` block, templated by `edi.sh init` | — |
+| `templates/CHANGELOG.template.md` | Initial `CHANGELOG.md` block, templated by `GEN-CLAUDE.sh init` | — |
 | `templates/security/python.md` | Python-specific forbidden patterns + recommended idioms + secrets/secure-deletion guidance + tooling | — |
 | `templates/security/c.md` | C-specific forbidden patterns + memory safety flags + `explicit_bzero`/secrets handling + tooling | — |
 | `templates/security/rust.md` | Rust-specific forbidden patterns (`unwrap`/`unsafe` discipline/async) + `secrecy`/`zeroize` + tooling | — |
@@ -36,7 +36,7 @@ Last updated: 2026-06-08
 | `.claude/docs/index.md` | `.claude/` documentation index | — |
 | `.claude/commands/tag.md` | `/tag` — version bump + CHANGELOG + git tag | — |
 | `.claude/commands/freeze.md` | `/freeze` — snapshot under a codename | — |
-| `.claude/commands/new_tool.md` | `/new_tool` — scaffold a new repo via edi.sh | — |
+| `.claude/commands/new_tool.md` | `/new_tool` — scaffold a new repo via GEN-CLAUDE.sh | — |
 | `.claude/commands/procedure_a.md` | `/procedure_a` — TDD walkthrough | — |
 | `.claude/commands/procedure_b.md` | `/procedure_b` — code review walkthrough | — |
 | `.claude/skills/commit_format/SKILL.md` | `/commit_format` — `type(scope): description` reference | — |
@@ -46,7 +46,7 @@ Last updated: 2026-06-08
 | `.claude/skills/perf_benchmark/SKILL.md` | `/perf_benchmark` — before/after benchmark for OPTIMIZE | — |
 | `.claude/skills/deps_audit/SKILL.md` | `/deps_audit` — CVE scan + license compliance gate | — |
 | `.claude/skills/security_scan/SKILL.md` | `/security_scan` — grep src/ for RULES.md §5 forbidden patterns (review step 6 gate) | — |
-| `.claude/skills/security_review/SKILL.md` | `/security_review` — AI semantic security review of the pending diff (review step 6); integrates anthropics/claude-code-security-review (MIT) | — |
+| `.claude/skills/security_review/SKILL.md` | `/security_review` — invokes the official /security-review (Anthropic), additional to /security_scan (review step 6) | — |
 | `.claude/settings.json` | Permissions (deny git/gh/curl/wget) + wires the four hooks | — |
 | `.claude/hooks/PreToolCall` | Workspace-boundary enforcement (blocks reads/writes outside repo + git/gh/curl/wget) | — |
 | `.claude/hooks/PostToolCall` | Warn when tool output contains apparent secrets | — |

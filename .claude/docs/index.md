@@ -7,7 +7,7 @@ Update after every doc change.
 | `CLAUDE.md` | Workspace law — EDI rules for Claude Code | - |
 | `commands/procedure_a.md` | TDD workflow (8 steps) | - |
 | `commands/procedure_b.md` | Code quality review (9 steps) | - |
-| `commands/new_tool.md` | Scaffold a new repo via edi.sh | - |
+| `commands/new_tool.md` | Scaffold a new repo via GEN-CLAUDE.sh | - |
 | `commands/freeze.md` | Snapshot procedure | - |
 | `commands/tag.md` | Version bump + changelog + git tag | - |
 | `agents/spec_writer.md` | Write `docs/spec/` for a module | - |
@@ -20,7 +20,7 @@ Update after every doc change.
 | `skills/perf_benchmark/SKILL.md` | `/perf_benchmark` — before/after benchmark | - |
 | `skills/deps_audit/SKILL.md` | `/deps_audit` — CVE + license gate | - |
 | `skills/security_scan/SKILL.md` | `/security_scan` — grep RULES.md §5 forbidden patterns (review step 6) | - |
-| `skills/security_review/SKILL.md` | `/security_review` — AI semantic security review of the diff (review step 6) | - |
+| `skills/security_review/SKILL.md` | `/security_review` — invokes the official /security-review; runs with /security_scan (review step 6) | - |
 | `templates/module_spec.md` | `docs/spec/` skeleton | - |
 | `hooks/PreToolCall` | Block reads/writes outside workspace + git/gh/curl/wget Bash | - |
 | `hooks/PostToolCall` | Warn when secrets appear in tool output | - |

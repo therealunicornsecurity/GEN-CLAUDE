@@ -2,6 +2,13 @@
 
 All notable changes to EDI are recorded here. Format follows the kit's own VERSIONING.md.
 
+## [1.2.0-Andromeda] - 2026-07-05
+### Changed
+- **Renamed the scaffolder** `edi.sh` → `GEN-CLAUDE.sh` and `edi.ps1` → `GEN-CLAUDE.ps1`; all references updated across the repo (release history preserved).
+- **Security Step 6 now delegates to the official bundled `/security-review`** (Anthropic) — run in addition to `/security_scan`. `/security_review` became a thin wrapper, not a reimplementation.
+### Verified
+- No official Anthropic unit-test-generation skill exists (only `webapp-testing`, E2E-scoped); `/test_gen` left unchanged.
+
 ## [1.1.0-Andromeda] - 2026-06-09
 ### Added
 - `/security_review` skill — AI-powered, diff-scoped semantic security review (severity + confidence scoring, false-positive filtering). Integrates [anthropics/claude-code-security-review](https://github.com/anthropics/claude-code-security-review) (MIT) and complements the grep-based `/security_scan`.

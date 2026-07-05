@@ -3,11 +3,11 @@
 > `templates/RULES.md` is law (it becomes the downstream `RULES.md`). Read it before any work.
 > Local-only rule additions go in `.claude/CLAUDE.local.md` (not synced, not committed).
 
-This is the kit's own meta-repo. Downstream repos scaffolded via `edi.sh init` receive their own `.claude/CLAUDE.md` from `templates/CLAUDE.md`.
+This is the kit's own meta-repo. Downstream repos scaffolded via `GEN-CLAUDE.sh init` receive their own `.claude/CLAUDE.md` from `templates/CLAUDE.md`.
 
 ## File Ownership Tiers (templates/RULES.md §10)
 
-| Tier | Label    | `edi.sh update` behavior                  |
+| Tier | Label    | `GEN-CLAUDE.sh update` behavior                  |
 |------|----------|-------------------------------------------|
 | 1    | Law      | Force-sync from kit — local edits lost    |
 | 2    | Scaffold | Written at init only — never overwritten  |
@@ -27,7 +27,7 @@ or add overrides to `.claude/CLAUDE.local.md` (Tier 4).
 |---------------|-----------------------------------------|
 | /procedure_a  | TDD procedure (RULES.md §3)             |
 | /procedure_b  | Code review (RULES.md §4)               |
-| /new_tool     | Scaffold new repo via edi.sh            |
+| /new_tool     | Scaffold new repo via GEN-CLAUDE.sh            |
 | /freeze       | Snapshot with next codename             |
 | /tag          | Patch/minor/major version bumper        |
 
@@ -41,4 +41,4 @@ or add overrides to `.claude/CLAUDE.local.md` (Tier 4).
 | /perf_benchmark | Before/after benchmark (review step 8)   |
 | /deps_audit     | CVE scan + license compliance gate       |
 | /security_scan  | Grep RULES.md §5 forbidden patterns (review step 6) |
-| /security_review | AI semantic security review of the diff — anthropics/claude-code-security-review (review step 6) |
+| /security_review | Invokes the official /security-review (Anthropic) on the diff — additional to /security_scan (review step 6) |
