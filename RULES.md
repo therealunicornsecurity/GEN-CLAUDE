@@ -96,6 +96,7 @@ This index MUST be updated after every documentation file creation, deletion, or
 - If you add a module, you MUST create its spec before writing the code.
 - Specs are the contract. If the spec and the code disagree, the spec wins — fix the code.
 - If you modify any documentation file, you MUST update `docs/index.md` in the same commit.
+- If a change alters an external output surface (DB schema, API, export format, log), you MUST update its interface contract in `docs/contracts/` in the same commit (§11).
 
 ### CHANGELOG.md
 
@@ -132,7 +133,7 @@ Every change to this repository follows this procedure. The steps are sequential
 
 ### Step details
 
-**SPEC**: Describe expected input, expected output, edge cases. This is the contract. Write it before touching code.
+**SPEC**: Describe expected input, expected output, edge cases. This is the contract. Write it before touching code. For substantial work, first clarify open questions with the operator (§8 rule 17) — numbered, per section.
 
 **TEST**: The test MUST:
 - Run in isolation (no network, no external dependencies unless integration test)
@@ -147,7 +148,7 @@ Every change to this repository follows this procedure. The steps are sequential
 
 **NONREG**: Move the validated test to `tests/nonreg/`. Non-regression tests are never deleted unless the feature is removed. A failing nonreg blocks the build. No override.
 
-**DOC**: Update `docs/spec/<module>.md`. This is not optional. Code and spec ship together.
+**DOC**: Update `docs/spec/<module>.md`. This is not optional. Code and spec ship together. If the change alters an external output surface, update its contract in `docs/contracts/<repo>/<contract>/` too — bump `version`, refresh `checksum`, add a sample (§11).
 
 **VERSION**: Bump per these rules:
 
@@ -395,6 +396,8 @@ See `/commit_format` skill for the full type table and examples.
 13. **NEVER fall back to guessing from cached knowledge without disclosing it — state the limitation clearly and ask**
 14. **NEVER add new CLI flags, subcommands, or public API surface without explicit approval.** Propose exact names and signatures in plain text, then wait. An ambiguous question is a request to clarify your analysis, not authorisation to ship surface changes.
 15. **NEVER edit operator-authored data files without explicit approval.** Configs, fixtures, captured baselines, key files, GUI-emitted artifacts — diagnose, propose the diff, wait for green light. Source code in `src/` and tests you authored are exempt; the line is "did the operator (or an operator-driven tool) author this?"
+16. **Answer concise and verified** — lead with the answer; give the shortest response that fully covers the ask (a few lines or a small table over prose; no restating the question, no filler). Response over-engineering is banned exactly as code over-engineering is (rule 6). Never assert what you have not verified — read the file/output, do not recall.
+17. **Clarify before substantial work** — before any substantial new code or non-trivial fix (a new module/function, a change spanning more than one file, or a Procedure A CODE step beyond the minimal test-pass), ask the operator numbered questions grouped per section (A.1, A.2… / B.1…) and wait for answers before coding. Trivial edits are exempt.
 
 ---
 
@@ -459,3 +462,42 @@ decides what `GEN-CLAUDE.sh update` does to it. This is the canonical definition
   overwrite a Scaffold file that already exists, regardless of caller mode, so
   user-authored build wiring (`Makefile` et al.) can never be clobbered by an
   update.
+
+---
+
+## 11. Interface Contracts
+
+Repos in this workspace expose file/language/structure surfaces that external **ingestors**
+depend on — a DB schema, a pipeline manifest, an export format, a report shape, a log format.
+Each such surface is declared as an **interface contract**. A contract exists the moment the
+surface exists; the `contract.yml` just formalizes it.
+
+**Folder.** `docs/contracts/<repo>/<contract>/` — a `contract.yml` manifest + version-tagged
+`samples/` + optional `v<N>/` for retained older versions. `<contract>` is a kebab **surface**
+noun (`pipeline-db`, `report-json`, `event-log`), not the repo name; the manifest names the
+ingestors when known.
+
+**Ownership (Tier 4).** A repo **owns, identifies, and declares** its own contracts — a real
+external surface with no contract is a coverage gap the repo MUST close (declare it via
+`/contracts`; that is required authoring). Typical surfaces: **output/DB schema, machine/HTTP
+API, exported files / result artifacts, log formats.** `GEN-CLAUDE.sh update` never touches
+`docs/contracts/`. The kit meta-repo **hosts and indexes** aggregated contracts
+(`contracts/<repo>/` + `registry.json`) so any ingestor can query them, but **never invents a
+contract on a repo's behalf** — `/contracts` in the kit is improve-only. ("Never authors" is
+scoped to the kit inventing a repo's contracts, **not** to a repo declaring its own surfaces.)
+
+**Flow.** Contracts propagate **upstream** (repo → kit) via the agent-executed
+`/export_contracts`. `GEN-CLAUDE.sh update` distributes only the *tooling* (the `/check_contracts` and
+`/export_contracts` commands, the `/contracts` skill, the `contract.yml` scaffold), never the
+contracts themselves.
+
+**Currency (binding).** A contract MUST be kept current with any change to its surface: bump
+`version`, refresh the `checksum` (`sha256` over `source_ref`), add a fresh sample.
+`/check_contracts` recomputes the checksum and FAILS on drift — that is the enforcement.
+
+**Samples (binding, §5).** Samples MUST be synthetic or sanitized — never real secrets or PII.
+`/check_contracts` scans samples for secret-shaped values and blocks on any live secret.
+
+**Commands (agent-executed — no `GEN-CLAUDE.sh` subcommand).** `/check_contracts` validates + gates;
+`/export_contracts` aggregates repo → kit (pull model) and emits the git sequence for the
+operator to run.

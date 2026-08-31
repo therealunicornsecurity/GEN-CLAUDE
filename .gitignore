@@ -22,6 +22,8 @@ dist/
 build/
 target/
 *.log
+tmp/
+
 
 # Environment / secrets — never commit
 .env

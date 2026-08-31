@@ -49,11 +49,17 @@ SYNC_MANIFEST=(
     "templates/Makefile|Makefile|2|T"
     "templates/VERSIONING.md|docs/VERSIONING.md|1|"
     "templates/codenames-example.yml|configs/codenames.yml|2|"
+    "templates/contract.yml|docs/contracts/_TEMPLATE.contract.yml|2|"
     ".claude/commands/tag.md|.claude/commands/tag.md|1|"
     ".claude/commands/freeze.md|.claude/commands/freeze.md|1|"
     ".claude/commands/new_tool.md|.claude/commands/new_tool.md|1|"
     ".claude/commands/procedure_a.md|.claude/commands/procedure_a.md|1|"
     ".claude/commands/procedure_b.md|.claude/commands/procedure_b.md|1|"
+    ".claude/commands/doc_alignment.md|.claude/commands/doc_alignment.md|1|"
+    ".claude/commands/check_contracts.md|.claude/commands/check_contracts.md|1|"
+    ".claude/commands/export_contracts.md|.claude/commands/export_contracts.md|1|"
+    ".claude/commands/backup_chat.md|.claude/commands/backup_chat.md|1|"
+    ".claude/commands/restore_chat.md|.claude/commands/restore_chat.md|1|"
     ".claude/skills/commit_format/SKILL.md|.claude/skills/commit_format/SKILL.md|1|"
     ".claude/skills/review/SKILL.md|.claude/skills/review/SKILL.md|1|"
     ".claude/skills/refactor/SKILL.md|.claude/skills/refactor/SKILL.md|1|"
@@ -62,9 +68,12 @@ SYNC_MANIFEST=(
     ".claude/skills/deps_audit/SKILL.md|.claude/skills/deps_audit/SKILL.md|1|"
     ".claude/skills/security_scan/SKILL.md|.claude/skills/security_scan/SKILL.md|1|"
     ".claude/skills/security_review/SKILL.md|.claude/skills/security_review/SKILL.md|1|"
+    ".claude/skills/supply_chain_audit/SKILL.md|.claude/skills/supply_chain_audit/SKILL.md|1|"
+    ".claude/skills/contracts/SKILL.md|.claude/skills/contracts/SKILL.md|1|"
     ".claude/agents/spec_writer.md|.claude/agents/spec_writer.md|3|"
     ".claude/agents/test_writer.md|.claude/agents/test_writer.md|3|"
     ".claude/agents/code_reviewer.md|.claude/agents/code_reviewer.md|3|"
+    ".claude/agents/security_auditor.md|.claude/agents/security_auditor.md|3|"
     ".claude/templates/module_spec.md|.claude/templates/module_spec.md|1|"
     ".claude/hooks/PreToolCall|.claude/hooks/PreToolCall|1|X"
     ".claude/hooks/PostToolCall|.claude/hooks/PostToolCall|1|X"
@@ -162,7 +171,7 @@ cmd_init() {
 
     header "Scaffolding $name ($lang)"
 
-    mkdir -p "$name"/{src,tests/{data,units,nonreg,integration},docs/{spec,roadmap},snapshots,configs,.claude/{commands,skills,agents,templates,hooks,docs}}
+    mkdir -p "$name"/{src,tests/{data,units,nonreg,integration},docs/{spec,roadmap,contracts},snapshots,configs,.claude/{commands,skills,agents,templates,hooks,docs}}
     cd "$name"
 
     # Sync all manifest entries (init mode → no skips for Tier 2)

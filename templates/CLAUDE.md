@@ -30,6 +30,9 @@ or add overrides to `.claude/CLAUDE.local.md` (Tier 4).
 | /new_tool        | Scaffold new repo via GEN-CLAUDE.sh          |
 | /freeze          | Snapshot with next codename           |
 | /tag             | Patch/minor/major version bumper      |
+| /doc_alignment   | Doc↔code alignment sweep — gated      |
+| /check_contracts | Validate interface contracts (RULES.md §11) |
+| /export_contracts| Publish contracts upstream to the kit (§11) |
 
 ## Skills
 | Slash command   | Purpose                                  |
@@ -42,3 +45,5 @@ or add overrides to `.claude/CLAUDE.local.md` (Tier 4).
 | /security_scan  | Grep RULES.md §5 forbidden patterns (review step 6) |
 | /security_review | Invokes the official /security-review (Anthropic) — additional to /security_scan (review step 6) |
 | /perf_benchmark | Before/after benchmark (review step 8)   |
+| /supply_chain_audit | Dep malware check — gated (review step 0) |
+| /contracts      | Help improve interface contracts (§11; never invents) |

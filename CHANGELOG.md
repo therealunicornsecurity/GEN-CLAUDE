@@ -2,6 +2,19 @@
 
 All notable changes to GEN-CLAUDE are recorded here. Format follows the kit's own VERSIONING.md.
 
+## [1.4.0-Andromeda] - 2026-08-31
+### Added
+- **Interface Contracts system** (`RULES.md` §11, new; ported from the 0.1.1-Orion side-cut): a repo declares each external file/language/structure surface an ingestor depends on under `docs/contracts/<repo>/<contract>/` (a `contract.yml` manifest + version-tagged, sanitized samples); the kit hosts/indexes aggregated contracts (`contracts/` + `registry.json`) but never invents a repo's contracts. Agent-executed `/check_contracts` (validate + gate) and `/export_contracts` (publish upstream). §2 and the §3 DOC step gained contract-currency clauses. Ships the `contract.yml` scaffold (Tier-2), the empty `contracts/` store, and a `/contracts` skill.
+- **`/doc_alignment`** command — gated doc↔code alignment sweep.
+- **`/supply_chain_audit`** skill — dependency malware / supply-chain check against a known-malware/advisory database, gated as Procedure B Step 0.
+- **`/backup_chat`, `/restore_chat`** commands — snapshot/restore the Claude Code session to `.claude/sessions/`.
+- **`security_auditor`** agent — isolated §5 security audit, pairs with the `/security_scan` skill.
+- `GEN-CLAUDE.sh` and `GEN-CLAUDE.ps1` `SYNC_MANIFEST` (+8 entries each) and `init` scaffold (`docs/contracts/`) updated to distribute all of the above; `.claude/docs/index.md`, `docs/index.md`, `README.md` inventories refreshed; `spec_writer` agent reports to "the operator".
+
+## [1.3.0-Andromeda] - 2026-08-31
+### Added
+- **Two binding AI-conduct rules** in `RULES.md` §8 (AI Assistant Rules), ported from the 0.1.1-Orion side-cut: **16. Answer concise and verified** (lead with the answer, shortest response that covers the ask, response over-engineering banned as code over-engineering is, never assert the unverified) and **17. Clarify before substantial work** (before substantial new code or a non-trivial fix, ask the operator numbered per-section questions and wait). §3's SPEC step gained an in-flow pointer to rule 17. Applied to both `templates/RULES.md` (source of truth) and the kit-self `RULES.md`.
+
 ## [1.2.1-Andromeda] - 2026-07-05
 ### Changed
 - **Rebranded EDI → GEN-CLAUDE** across all live files (README banner/wordmark, RULES, CLAUDE.md, docs, skills, templates, hooks, and the boundary env var `GEN_CLAUDE_BOUNDARY_EXTRA`). GitHub repo → `GEN-CLAUDE` via `gh repo rename`. Dated release-history entries kept accurate.

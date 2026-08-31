@@ -97,6 +97,11 @@ Claude, and **`make` targets**. Here's the whole surface.
 | `/new_tool` | Scaffold a new repo via `GEN-CLAUDE.sh init` (asks for `NAME` + `LANG`, requests boundary permission) |
 | `/freeze` | Capture an **immutable, codenamed snapshot** of UI/schema/spec/config |
 | `/tag` | Version bump (`patch`/`minor`/`major`) → CHANGELOG entry → emits the exact git tag+push commands |
+| `/doc_alignment` | **Gated doc↔code alignment sweep** — read ALL md, bidirectional spec↔code checks, hygiene, report table |
+| `/check_contracts` | Validate interface contracts — coverage, currency (checksum), sample sanitization (RULES.md §11) |
+| `/export_contracts` | Publish a repo's contracts upstream to the kit's `contracts/` store (§11, pull model) |
+| `/backup_chat` | Snapshot the Claude Code session to `.claude/sessions/` for commit/transfer |
+| `/restore_chat` | Restore committed sessions into the local Claude Code projects folder |
 
 ### Skills — structured, reusable tasks
 
@@ -110,6 +115,8 @@ Claude, and **`make` targets**. Here's the whole surface.
 | `/deps_audit` | CVE scan + license-compliance gate (review step 0, **blocking**) |
 | `/security_scan` | Grep `src/` for RULES.md §5 forbidden patterns (review step 6, **blocking**) |
 | `/security_review` | Invokes Anthropic's official **`/security-review`** on the diff — runs **in addition to** `/security_scan` at review step 6 (both blocking); [anthropics/claude-code-security-review](https://github.com/anthropics/claude-code-security-review) |
+| `/supply_chain_audit` | Dep malware check against a known-malware/advisory database — gated review step 0 sub-check (no key ⇒ skip) |
+| `/contracts` | Identify/declare a repo's interface contracts (tool repo) or improve them (kit — never invents) (§11) |
 
 ### `make` targets — every scaffolded repo implements these
 
@@ -135,13 +142,17 @@ make clean         remove build artifacts
 ├── CLAUDE.md                workspace law (per-repo, generic)
 ├── commands/                slash commands you type
 │   ├── tag.md · freeze.md · new_tool.md · procedure_a.md · procedure_b.md
+│   ├── doc_alignment.md · check_contracts.md · export_contracts.md
+│   ├── backup_chat.md · restore_chat.md
 ├── skills/                  reusable structured tasks
 │   ├── commit_format/ · review/ · refactor/ · test_gen/
-│   ├── perf_benchmark/ · deps_audit/ · security_scan/
+│   ├── perf_benchmark/ · deps_audit/ · security_scan/ · security_review/
+│   ├── supply_chain_audit/ · contracts/
 ├── agents/                  isolated sub-agent runners (context: fork)
 │   ├── spec_writer.md       writes docs/spec/<module>.md
 │   ├── test_writer.md       generates a failing test from a spec
-│   └── code_reviewer.md     findings-only review pass
+│   ├── code_reviewer.md     findings-only review pass
+│   └── security_auditor.md  isolated §5 security audit
 ├── hooks/                   ← REAL enforcement, runs before/after tools
 │   ├── PreToolCall          block reads/writes outside the workspace + git/gh/curl/wget
 │   ├── PostToolCall         warn when secrets appear in tool output
@@ -150,11 +161,11 @@ make clean         remove build artifacts
 ├── settings.json            wires the four hooks; denies git/gh/curl/wget in Bash
 └── templates/module_spec.md docs/spec/ skeleton
 
-RULES.md          the law file — 10 sections, force-synced (Tier 1)
+RULES.md          the law file — 11 sections, force-synced (Tier 1)
 Makefile          universal targets (above)
 VERSION           MAJOR.MINOR.PATCH[-CODENAME]
 CHANGELOG.md      version history
-docs/ tests/ src/ configs/ snapshots/   mandated structure
+docs/ tests/ src/ configs/ snapshots/   mandated structure (docs/contracts/ = interface contracts, §11)
 ```
 
 ### 🛡️ Hooks — the part that actually enforces
@@ -217,14 +228,15 @@ a YAML with a `pool:` list and an `assigned:` list. Once assigned, a codename is
 
 ```
 GEN-CLAUDE.sh                 the scaffolder + sync tool
-RULES.md               the law (10 sections) — copied to every repo as Tier 1
+RULES.md               the law (11 sections) — copied to every repo as Tier 1
 Makefile               this kit's own targets
 VERSION · CHANGELOG.md this kit's own version + history
 templates/             everything GEN-CLAUDE.sh stamps into a new repo
   ├── RULES.md · CLAUDE.md · Makefile · VERSIONING.md
-  ├── CHANGELOG.template.md · codenames-example.yml
+  ├── CHANGELOG.template.md · codenames-example.yml · contract.yml
   ├── security/        per-language addendums (python · c · rust · go full)
   └── gitignore.*      per-language ignore files
+contracts/             aggregated interface-contracts store + registry.json (§11)
 decisions/DECISIONS.md decision-log template
 docs/index.md          documentation index
 ```

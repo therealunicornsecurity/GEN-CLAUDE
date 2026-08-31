@@ -1,0 +1,22 @@
+# Interface Contract manifest — RULES.md §11.
+# One folder per external file/language/structure: docs/contracts/<repo>/<contract>/
+# The kit hosts contracts; it never authors them. Keep this CURRENT with any change (checksum-gated).
+# Copy into docs/contracts/<repo>/<contract>/contract.yml and fill in.
+
+repo: <owning tool repo name>
+contract: <kebab surface noun — output-db | report-json | http-api | ...>
+version: "1.0.0"                 # contract semver, independent of the tool VERSION
+kind: structure                  # filetype | language | structure
+format: sqlite                   # json | jsonl | csv | sqlite | proto | openapi | binary | ...
+description: <what it is and which ingestor depends on it>
+ingestors:                       # known external consumers, or: [unknown]
+  - <consumer>
+produces: <module or command that emits this surface>
+source_ref:                      # file(s) whose change means the contract changed
+  - <path>
+checksum: "sha256:<recomputed over source_ref by /check_contracts>"
+samples:                         # synthetic / sanitized ONLY — never real secrets or PII (RULES.md §5)
+  - path: samples/v1/<sample-file>
+    version: "1.0.0"
+updated: "<YYYY-MM-DD>"
+# supersedes: "<older version>"  # retain breaking predecessors under v<N>/
